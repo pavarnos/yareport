@@ -91,7 +91,7 @@ class HtmlRenderTest extends TestCase
     {
         $report = new Report();
         $report->addColumn((new Column('name', 'Name', 'Personal name'))->setSortOrder(['name']));
-        $report->addColumn((new EmailColumn('email', 'Email'))->setSortOrder(['name']));
+        $report->addColumn((new EmailColumn('email', 'Email'))->setSortOrder(['email']));
         $report->addColumn(
             (new MoneyColumn('rate', 'Hourly Rate'))->setCurrencySymbol('$')->setSortOrder(['rate', 'name'])
         );

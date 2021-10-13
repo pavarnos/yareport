@@ -108,19 +108,6 @@ class HtmlRender implements HtmlRenderInterface
     }
 
     /**
-     * @param Column[] $columns
-     * @return string
-     */
-    protected function beforeFirstRow(array $columns): string
-    {
-        $output = '';
-        foreach ($this->rowDecorators as $decorator) {
-            $output .= $decorator->beforeFirstRow($columns);
-        }
-        return $output;
-    }
-
-    /**
      * @param Column[]      $columns
      * @param Sorter        $sorter
      * @param ?UriInterface $baseUrl
@@ -232,7 +219,20 @@ class HtmlRender implements HtmlRenderInterface
 
     /**
      * @param Column[] $columns
-     * @return string
+     * @return string html
+     */
+    protected function beforeFirstRow(array $columns): string
+    {
+        $output = '';
+        foreach ($this->rowDecorators as $decorator) {
+            $output .= $decorator->beforeFirstRow($columns);
+        }
+        return $output;
+    }
+
+    /**
+     * @param Column[] $columns
+     * @return string html
      */
     protected function afterLastRow(array $columns): string
     {

@@ -57,6 +57,7 @@ class TableElement
 
     public function setAttribute(string $id, string $value): static
     {
+        assert($id !== 'class', 'use addStyle()');
         $this->attributes[$id] = $value;
         return $this;
     }

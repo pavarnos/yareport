@@ -9,9 +9,11 @@ A report writer where you
 This is based on a library i first wrote in the late 1990s. I have used it in many projects since then, and kept it up
 to date as PHP has matured
 
-* PHP >= 8.0
+* PHP >= 8.0 with strict types
 * phpstan --level=max
 * high unit test coverage
+* battle tested over many years
+* as lightweight as possible internally
 
 ## Installation
 
