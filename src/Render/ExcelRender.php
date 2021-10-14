@@ -11,6 +11,7 @@ namespace LSS\YAReport\Render;
 
 use LSS\YAReport\Report;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
@@ -49,6 +50,30 @@ class ExcelRender implements RenderInterface
 
         $this->setColumnSizes($columns);
         return $this->document;
+    }
+
+    public function setDocumentTitle(string $title): void
+    {
+        $this->getDocument()->getProperties()->setTitle($title)->setSubject($title);
+    }
+
+    /**
+     * convert the spreadsheet to a stream resource so it can be sent in an http response body
+     * @param Spreadsheet $document
+     * @return resource stream
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws \Safe\Exceptions\FilesystemException
+     */
+    public function toStream(Spreadsheet $document)
+    {
+        /** @var \PhpOffice\PhpSpreadsheet\Writer\Xlsx $writer */
+        $writer = IOFactory::createWriter($document, 'Xlsx');
+        $writer->setPreCalculateFormulas(false);
+
+        $stream = \Safe\fopen('php://temp', 'rw');
+        $writer->save($stream);
+        fseek($stream, 0);
+        return $stream;
     }
 
     public function appendString(string $value): void

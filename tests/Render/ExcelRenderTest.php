@@ -38,7 +38,9 @@ class ExcelRenderTest extends TestCase
             ['Blank', '', '', '', '', ''],
             ['Dave', 'dave@example.com', 19, 88, false],
         ];
-        $sheet    = (new ExcelRender())->render($this->getReport(), $rawData)->getActiveSheet();
+        $subject  = new ExcelRender();
+        $subject->setDocumentTitle($title = 'Foo');
+        $sheet = $subject->render($this->getReport(), $rawData)->getActiveSheet();
         $this->assertValidHeader($sheet);
         foreach ($expected as $rowIndex => $row) {
             foreach ($row as $columnIndex => $cell) {
