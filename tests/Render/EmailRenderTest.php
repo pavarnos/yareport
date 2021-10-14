@@ -34,7 +34,7 @@ class EmailRenderTest extends TestCase
         $result = (new EmailRender())->render(
             $this->getReport(),
             $rawData,
-            fn(array $row): string => $row['name'] ?? ''
+            fn(string $columnId, array $row): string => $row['name'] ?? ''
         );
         self::assertEquals($expected, $result);
     }

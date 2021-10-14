@@ -18,35 +18,31 @@ use LSS\YAReport\Report;
  * click the Email Addresses link to extract all the valid emails from the whole data set and display for copy-paste
  * into an email client
  *
- * makeName() should take a row and return the human friendly name for the email address or ''
+ * makeName(string $emailAddressColumn, array $row)
+ * should take a row and return the human friendly name for the email address or ''
  */
 class EmailRender
 {
     /**
      * @param Report        $report
      * @param iterable      $data
-     * @param callable|null $makeName callable(array):string
+     * @param callable|null $makeName callable(string, array):string
      * @return array
      */
     public function render(Report $report, iterable $data, callable $makeName = null): array
     {
         $emailColumns = $this->findEmailColumns($report);
-        $makeName     ??= fn(array $row) => '';
+        $makeName     ??= fn(string $emailColumn, array $row) => '';
         $output       = [];
         foreach ($data as $row) {
             foreach ($emailColumns as $emailColumn) {
                 if (empty($row[$emailColumn])) {
                     continue;
                 }
-                $output[] = $this->format($row[$emailColumn], $makeName($row));
+                $output[] = $this->format($row[$emailColumn], $makeName($emailColumn, $row));
             }
         }
         return array_unique($output);
-    }
-
-    private function format(string $email, string $name): string
-    {
-        return empty($name) ? $email : ($name . ' <' . $email . '>');
     }
 
     protected function findEmailColumns(Report $report): array
@@ -58,5 +54,10 @@ class EmailRender
             }
         }
         return $result;
+    }
+
+    private function format(string $email, string $name): string
+    {
+        return empty($name) ? $email : ($name . ' <' . $email . '>');
     }
 }
