@@ -15,14 +15,14 @@
     ],
     "require": {
         "php": ">=8.0",
-        "thecodingmachine/safe": "^1.3",
+        "thecodingmachine/safe": "^2",
         "psr/http-message": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.1",
-        "phpstan/phpstan": "^0.12",
-        "phpstan/phpstan-phpunit": "^0.12",
-        "phpstan/phpstan-strict-rules": "^0.12",
+        "phpstan/phpstan": "^1",
+        "phpstan/phpstan-phpunit": "^1",
+        "phpstan/phpstan-strict-rules": "^1",
         "nesbot/carbon": "^2.53",
         "phpoffice/phpspreadsheet": "^1.18",
         "nyholm/psr7": "^1.4"

@@ -53,7 +53,7 @@ class ReportSerializer
 
     public function fromJson(Report $template, string $json): Report
     {
-        return $this->fromArray($template, \Safe\json_decode($json ?: '[]', true));
+        return $this->fromArray($template, (array) \Safe\json_decode($json ?: '[]', true));
     }
 
     public function toJson(Report $report): string
